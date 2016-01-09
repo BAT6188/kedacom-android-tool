@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>images/mainwindow.jpg</file>
+    </qresource>
+</RCC>
