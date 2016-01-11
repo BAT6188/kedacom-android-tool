@@ -81,39 +81,39 @@ void ThreadScreenshot::run()
     unsigned int bytesPerPixel=0, dataSize=0;
 
     this->socket = new QTcpSocket();
-//    this->socket->connectToHost("127.0.0.1",5037,QTcpSocket::ReadWrite);
+    this->socket->connectToHost("127.0.0.1",5037,QTcpSocket::ReadWrite);
 
-//    if (this->socket->waitForConnected(2000))
-//    {
-//        this->socket->write("0012host:track-devices");
-//        this->socket->waitForReadyRead(2000);
-//        data = this->socket->read(4);
-//        if (data == "OKAY")
-//        {
-//            this->socket->waitForReadyRead(2000);
-//            tmp = this->socket->read(4);
-//            data = this->socket->readAll();
+    if (this->socket->waitForConnected(2000))
+    {
+        this->socket->write("0012host:track-devices");
+        this->socket->waitForReadyRead(2000);
+        data = this->socket->read(4);
+        if (data == "OKAY")
+        {
+            this->socket->waitForReadyRead(2000);
+            tmp = this->socket->read(4);
+            data = this->socket->readAll();
 
-//            if (data.contains("device"))
-//            {
-//                serialLength = tmp.toInt(&ok, 16) - 8;
-//                recovery = false;
-//            }
-//            if (data.contains("recovery"))
-//            {
-//                serialLength = tmp.toInt(&ok, 16) - 10;
-//                recovery = true;
-//            }
-//            serialNumber = data.left(serialLength);
-//        }
-//        else
-//        {
-//            emit gotScreenshot(noScreenshotImage(this->widthScreen, this->heightScreen), this->widthScreen, this->heightScreen);
-//            return;
-//        }
-//        this->socket->disconnectFromHost();
-//    }
-    serialNumber = "0123456789";
+            if (data.contains("device"))
+            {
+                serialLength = tmp.toInt(&ok, 16) - 8;
+                recovery = false;
+            }
+            if (data.contains("recovery"))
+            {
+                serialLength = tmp.toInt(&ok, 16) - 10;
+                recovery = true;
+            }
+            serialNumber = data.left(serialLength);
+        }
+        else
+        {
+            emit gotScreenshot(noScreenshotImage(this->widthScreen, this->heightScreen), this->widthScreen, this->heightScreen);
+            return;
+        }
+        this->socket->disconnectFromHost();
+    }
+
     if (!serialNumber.isEmpty())
     {
         //SCREENSHOT

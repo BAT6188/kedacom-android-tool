@@ -18,16 +18,22 @@ SOURCES += main.cpp\
     ksetting.cpp \
     adbprocess.cpp \
     screenshotthread.cpp \
-    screenshot.cpp
+    screenshot.cpp \
+    screendockwidget.cpp \
+    phonedockwidget.cpp
 
 HEADERS  += mainwindow.h \
     ksetting.h \
     adbprocess.h \
     screenshotthread.h \
-    screenshot.h
+    screenshot.h \
+    screendockwidget.h \
+    phonedockwidget.h
 
 FORMS    += mainwindow.ui \
-    screenshot.ui
+    screenshot.ui \
+    screendockwidget.ui \
+    phonedockwidget.ui
 
 RESOURCES += \
     kt.qrc

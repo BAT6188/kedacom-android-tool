@@ -12,16 +12,25 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    screenShotWidget = new ScreenShot(ui->stackedWidget);
+    //screenShotWidget = new ScreenShot(ui->stackedWidget);
+    screenDockWidget = new ScreenDockWidget(this);
+    phoneDockWidget = new PhoneDockWidget(this);
+
     ADBProcess process;
     process.exec("version");
     ui->statusBar->showMessage(process.readAll());
 
-    process.exec("devices");
-    ui->pushButton->setText(process.readAll());
+    //ui->stackedWidget->addWidget(screenDockWidget);
+    //ui->stackedWidget->setCurrentWidget(screenDockWidget);
+    addDockWidget(Qt::LeftDockWidgetArea,screenDockWidget);
+    addDockWidget(Qt::RightDockWidgetArea,phoneDockWidget);
+    createActions();
+    ui->mainToolBar->addAction(phoneAction);
+}
 
-    ui->stackedWidget->addWidget(screenShotWidget);
-    ui->stackedWidget->setCurrentWidget(screenShotWidget);
+void MainWindow::createActions()
+{
+    phoneAction = new QAction(QIcon(":/icons/images/mainwindow.jpg"),tr("My Phone"),this);
 }
 
 MainWindow::~MainWindow()

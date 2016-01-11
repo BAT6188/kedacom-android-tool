@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include <screenshotthread.h>
 #include <screenshot.h>
+#include <QAction>
+#include <screendockwidget.h>
+#include <phonedockwidget.h>
 
 namespace Ui {
 class MainWindow;
@@ -20,6 +23,10 @@ public:
 private:
     Ui::MainWindow *ui;
     ScreenShot *screenShotWidget;
+    ScreenDockWidget *screenDockWidget;
+    PhoneDockWidget *phoneDockWidget;
+    QAction *phoneAction;
+    void createActions();
 };
 
 #endif // MAINWINDOW_H
