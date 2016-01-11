@@ -6,6 +6,7 @@
 #include <ksetting.h>
 #include <adbprocess.h>
 
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -22,10 +23,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //ui->stackedWidget->addWidget(screenDockWidget);
     //ui->stackedWidget->setCurrentWidget(screenDockWidget);
-    addDockWidget(Qt::LeftDockWidgetArea,screenDockWidget);
-    addDockWidget(Qt::RightDockWidgetArea,phoneDockWidget);
+    addDockWidget(Qt::RightDockWidgetArea,screenDockWidget);
+    addDockWidget(Qt::LeftDockWidgetArea,phoneDockWidget);
     createActions();
     ui->mainToolBar->addAction(phoneAction);
+
+    phonethread.start();
 }
 
 void MainWindow::createActions()

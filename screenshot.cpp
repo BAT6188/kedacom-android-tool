@@ -17,7 +17,7 @@ ScreenShot::ScreenShot(QWidget *parent) :
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(takeScreenshot()));
     connect(&threadScreenshot, SIGNAL(gotScreenshot(QImage, int, int)), this, SLOT(showScreenshot(QImage, int, int)));
-    timer->start(200);
+    //timer->start(200);
 }
 
 void ScreenShot::showScreenshot(QImage image, int width, int height)

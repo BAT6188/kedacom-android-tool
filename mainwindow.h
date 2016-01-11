@@ -7,6 +7,7 @@
 #include <QAction>
 #include <screendockwidget.h>
 #include <phonedockwidget.h>
+#include <phoneconnectthread.h>
 
 namespace Ui {
 class MainWindow;
@@ -26,6 +27,7 @@ private:
     ScreenDockWidget *screenDockWidget;
     PhoneDockWidget *phoneDockWidget;
     QAction *phoneAction;
+    PhoneConnectThread phonethread;
     void createActions();
 };
 

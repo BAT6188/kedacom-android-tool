@@ -6,10 +6,11 @@ ADBProcess::ADBProcess(): QProcess(qApp)
     setProcessChannelMode(QProcess::MergedChannels);
 }
 
-ADBProcess::exec(QString cmd)
+void ADBProcess::exec(QString cmd)
 {
     start(KSetting::getSetting()->value("ADB_PATH").toString()+" " + cmd);
     waitForFinished(-1);
+    return;
 }
 
 ADBProcess::~ADBProcess()

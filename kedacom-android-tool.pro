@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     screenshotthread.cpp \
     screenshot.cpp \
     screendockwidget.cpp \
-    phonedockwidget.cpp
+    phonedockwidget.cpp \
+    phoneconnectthread.cpp
 
 HEADERS  += mainwindow.h \
     ksetting.h \
@@ -28,7 +29,8 @@ HEADERS  += mainwindow.h \
     screenshotthread.h \
     screenshot.h \
     screendockwidget.h \
-    phonedockwidget.h
+    phonedockwidget.h \
+    phoneconnectthread.h
 
 FORMS    += mainwindow.ui \
     screenshot.ui \

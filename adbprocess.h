@@ -9,7 +9,7 @@ class ADBProcess : public QProcess
 public:
     ADBProcess();
     ~ADBProcess();
-    exec(QString cmd);
+    void exec(QString cmd);
 
 private:
     static ADBProcess *ADBcommand;
