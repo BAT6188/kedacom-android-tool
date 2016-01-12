@@ -16,7 +16,6 @@ void PhoneConnectThread::run()
         data = this->socket->read(4);
         if (data == "OKAY")
         {
-
             while (true)
             {
                 if (!first)
@@ -26,7 +25,10 @@ void PhoneConnectThread::run()
                 tmp=data;
                 qDebug() << "PhoneConnectThread data1:"+data;
                 if (data == "")
+                {
+                    sleep(1);
                     continue;
+                }
                 dataLength = data.toInt(&ok, 16);
                 if (dataLength == 0)
                 {
@@ -53,7 +55,6 @@ void PhoneConnectThread::run()
                     if (data.contains("offline"))
                         emit this->connectionChanged(3,serialNumber);
                 }
-                sleep(1);
             }
         }
         else

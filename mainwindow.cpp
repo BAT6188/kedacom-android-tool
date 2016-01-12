@@ -13,7 +13,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //screenShotWidget = new ScreenShot(ui->stackedWidget);
     screenDockWidget = new ScreenDockWidget(this);
     phoneDockWidget = new PhoneDockWidget(this);
 
@@ -21,8 +20,6 @@ MainWindow::MainWindow(QWidget *parent) :
     process.exec("version");
     ui->statusBar->showMessage(process.readAll());
 
-    //ui->stackedWidget->addWidget(screenDockWidget);
-    //ui->stackedWidget->setCurrentWidget(screenDockWidget);
     addDockWidget(Qt::RightDockWidgetArea,screenDockWidget);
     addDockWidget(Qt::LeftDockWidgetArea,phoneDockWidget);
     createActions();
@@ -39,5 +36,9 @@ void MainWindow::createActions()
 
 MainWindow::~MainWindow()
 {
+    if(phonethread.isRunning())
+    {
+        phonethread.terminate();
+    }
     delete ui;
 }

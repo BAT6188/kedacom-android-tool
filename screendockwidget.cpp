@@ -43,5 +43,9 @@ void ScreenDockWidget::takeScreenshot()
 
 ScreenDockWidget::~ScreenDockWidget()
 {
+    if(threadScreenshot.isRunning())
+    {
+        threadScreenshot.terminate();
+    }
     delete ui;
 }
