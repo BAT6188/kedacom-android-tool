@@ -22,22 +22,24 @@ void PhoneConnectThread::run()
                 if (!first)
                     this->socket->waitForReadyRead(-1);
                 first = false;
-
                 data = this->socket->read(4);
                 tmp=data;
+                qDebug() << "PhoneConnectThread data1:"+data;
                 if (data == "")
                     continue;
                 dataLength = data.toInt(&ok, 16);
                 if (dataLength == 0)
                 {
-                    emit this->connectionChanged(1,"");
+                    emit this->connectionChanged(0,"");
                 }
                 else
                 {
                     data = this->socket->read(dataLength);
-
+                    qDebug() << "PhoneConnectThread data2:"+data;
                     if (data.contains("device"))
+                    {
                         serialLength = tmp.toInt(&ok, 16) - 8;
+                    }
                     if (data.contains("recovery"))
                         serialLength = tmp.toInt(&ok, 16) - 10;
 
@@ -45,13 +47,13 @@ void PhoneConnectThread::run()
 
                     serialNumber = serialNumber.left(serialLength);
                     if (data.contains("device"))
-                        emit this->connectionChanged(2,serialNumber);
-                    if (data.contains("recovery"))
-                        emit this->connectionChanged(3,serialNumber);
-                    if (data.contains("offline"))
                         emit this->connectionChanged(1,serialNumber);
+                    if (data.contains("recovery"))
+                        emit this->connectionChanged(2,serialNumber);
+                    if (data.contains("offline"))
+                        emit this->connectionChanged(3,serialNumber);
                 }
-                qDebug() << serialNumber;
+                sleep(1);
             }
         }
         else

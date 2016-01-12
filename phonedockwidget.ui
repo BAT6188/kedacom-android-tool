@@ -16,7 +16,7 @@
   <property name="minimumSize">
    <size>
     <width>300</width>
-    <height>200</height>
+    <height>222</height>
    </size>
   </property>
   <property name="allowedAreas">
@@ -54,13 +54,6 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
-        <widget class="QLabel" name="phoneId">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="0">
         <widget class="QLabel" name="Name">
          <property name="text">
@@ -68,10 +61,29 @@
          </property>
         </widget>
        </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="phoneID">
+         <property name="maximumSize">
+          <size>
+           <width>150</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
        <item row="1" column="1">
-        <widget class="QLabel" name="phoneName">
-         <property name="text">
-          <string/>
+        <widget class="QLineEdit" name="phoneName">
+         <property name="maximumSize">
+          <size>
+           <width>150</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
          </property>
         </widget>
        </item>

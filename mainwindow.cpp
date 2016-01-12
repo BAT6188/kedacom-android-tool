@@ -28,6 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
     createActions();
     ui->mainToolBar->addAction(phoneAction);
 
+    connect(&phonethread,SIGNAL(connectionChanged(int,QString)),phoneDockWidget,SLOT(slotConnectionChanged(int,QString)));
     phonethread.start();
 }
 
