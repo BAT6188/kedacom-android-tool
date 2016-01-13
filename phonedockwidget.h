@@ -15,6 +15,8 @@ class PhoneDockWidget : public QDockWidget
 public:
     explicit PhoneDockWidget(QWidget *parent = 0);
     ~PhoneDockWidget();
+signals:
+    void newPhone(QString);
 public slots:
     void slotConnectionChanged(int,QString);
 private:

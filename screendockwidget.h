@@ -14,7 +14,7 @@ class ScreenDockWidget : public QDockWidget
     Q_OBJECT
 
 public:
-    explicit ScreenDockWidget(QWidget *parent = 0);
+    explicit ScreenDockWidget(QWidget *parent = 0,QString serialNum="");
     ~ScreenDockWidget();
 
 private:

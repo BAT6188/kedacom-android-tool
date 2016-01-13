@@ -12,8 +12,6 @@ public:
     explicit Phone(QObject *parent = 0);
     QString getProperty(QString property);
 
-signals:
-
 private:
     void parseProperty();
     QString serialNum;

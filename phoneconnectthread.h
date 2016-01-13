@@ -10,7 +10,6 @@ class PhoneConnectThread : public QThread
 {
     Q_OBJECT
 private:
-    QTcpSocket *socket;
     void run();
 
 signals:

@@ -73,68 +73,36 @@ void ThreadScreenshot::run()
 {
     QByteArray data, imageData;
     QImage image;
-    QString serialNumber, tmp;
-    int serialLength=0;
-    bool ok,recovery=false;
+    QString tmp;
+    bool recovery=false;
     unsigned int width=0, height=0, redSize=0, greenSize=0, blueSize=0, alfaSize=0;
     unsigned int redOffset=0, greenOffset=0, blueOffset=0, alfaOffset=0;
     unsigned int bytesPerPixel=0, dataSize=0;
 
-    this->socket = new QTcpSocket();
-    this->socket->connectToHost("127.0.0.1",5037,QTcpSocket::ReadWrite);
-
-    if (this->socket->waitForConnected(2000))
-    {
-        this->socket->write("0012host:track-devices");
-        this->socket->waitForReadyRead(2000);
-        data = this->socket->read(4);
-        if (data == "OKAY")
-        {
-            this->socket->waitForReadyRead(2000);
-            tmp = this->socket->read(4);
-            data = this->socket->readAll();
-
-            if (data.contains("device"))
-            {
-                serialLength = tmp.toInt(&ok, 16) - 8;
-                recovery = false;
-            }
-            if (data.contains("recovery"))
-            {
-                serialLength = tmp.toInt(&ok, 16) - 10;
-                recovery = true;
-            }
-            serialNumber = data.left(serialLength);
-        }
-        else
-        {
-            emit gotScreenshot(noScreenshotImage(this->widthScreen, this->heightScreen), this->widthScreen, this->heightScreen);
-            return;
-        }
-        this->socket->disconnectFromHost();
-    }
+    QTcpSocket *shotsocket = new QTcpSocket();
+    shotsocket->connectToHost("127.0.0.1",5037,QTcpSocket::ReadWrite);
+    //serialNumber = "0123456789";
 
     if (!serialNumber.isEmpty())
     {
         //SCREENSHOT
-        this->socket->connectToHost("127.0.0.1",5037,QTcpSocket::ReadWrite);
-        if (this->socket->waitForConnected(2000))
+        if (shotsocket->waitForConnected(2000))
         {
             tmp.setNum(serialNumber.length()+15, 16);
             tmp = tmp.rightJustified(4, '0');
 
-            this->socket->write(tmp.toLatin1() + "host:transport:" + serialNumber.toLatin1());
-            this->socket->waitForReadyRead(2000);
-            data = this->socket->read(4);
+            shotsocket->write(tmp.toLatin1() + "host:transport:" + serialNumber.toLatin1());
+            shotsocket->waitForReadyRead(2000);
+            data = shotsocket->read(4);
             if (data == "OKAY")
             {
-                this->socket->write("000Cframebuffer:");
-                this->socket->waitForReadyRead(2000);
-                data = this->socket->read(4);
+                shotsocket->write("000Cframebuffer:");
+                shotsocket->waitForReadyRead(2000);
+                data = shotsocket->read(4);
                 if (data == "OKAY")
                 {
-                    this->socket->waitForReadyRead(2000);
-                    data = this->socket->read(52);
+                    shotsocket->waitForReadyRead(2000);
+                    data = shotsocket->read(52);
                     if (recovery)
                     {
                         dataSize = bytes_to_int(data,4);
@@ -149,7 +117,7 @@ void ThreadScreenshot::run()
                         greenSize = 6;
                         alfaOffset = 0;
                         alfaSize = 0;
-                        this->socket->write("00");
+                        shotsocket->write("00");
                     }
                     else
                     {
@@ -171,9 +139,10 @@ void ThreadScreenshot::run()
                     }
                     else
                     {
+                        qDebug() << "screenshotthread emit";
                         do{
-                            this->socket->waitForReadyRead(1000);
-                            imageData.append(this->socket->readAll());
+                            shotsocket->waitForReadyRead(1000);
+                            imageData.append(shotsocket->readAll());
                         }while((unsigned int)imageData.size() < bytesPerPixel*width*height);
                         image = rgb565toQImage(imageData, bytesPerPixel, width, height, redOffset, redSize,
                                                blueOffset, blueSize, greenOffset, greenSize, alfaOffset, alfaSize);
@@ -190,7 +159,13 @@ void ThreadScreenshot::run()
             {
                 emit gotScreenshot(noScreenshotImage(this->widthScreen, this->heightScreen), this->widthScreen, this->heightScreen);
             }
-            this->socket->disconnectFromHost();
+            shotsocket->disconnectFromHost();
         }
-     }///END SCREENSHOT
+     }//END SCREENSHOT
+}
+
+void ThreadScreenshot::setSerialNum(QString serialNum)
+{
+    this->serialNumber = serialNum;
+    qDebug() << "ThreadScreenShot:"+this->serialNumber;
 }

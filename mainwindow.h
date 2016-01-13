@@ -29,6 +29,8 @@ private:
     QAction *phoneAction;
     PhoneConnectThread phonethread;
     void createActions();
+private slots:
+    void createScreenWidget(QString);
 };
 
 #endif // MAINWINDOW_H

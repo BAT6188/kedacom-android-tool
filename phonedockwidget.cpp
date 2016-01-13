@@ -23,6 +23,7 @@ void PhoneDockWidget::slotConnectionChanged(int flag,QString msg)
     {
         Phone *p = new Phone(this);
         phoneMap.insert(1,p);
+        emit newPhone(p->getProperty("[ro.boot.serialno]"));
         ui->phoneID->setText(p->getProperty("[ro.boot.serialno]"));
         ui->phoneName->setText(p->getProperty("[ro.product.name]"));
     }

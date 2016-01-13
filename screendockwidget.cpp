@@ -1,7 +1,7 @@
 #include "screendockwidget.h"
 #include "ui_screendockwidget.h"
 
-ScreenDockWidget::ScreenDockWidget(QWidget *parent) :
+ScreenDockWidget::ScreenDockWidget(QWidget *parent,QString serialNum) :
     QDockWidget(parent),
     ui(new Ui::ScreenDockWidget)
 {
@@ -15,10 +15,12 @@ ScreenDockWidget::ScreenDockWidget(QWidget *parent) :
     this->ui->labelScreen->setPixmap(this->screenshot);
 
     //connect(ui->pushButton,SIGNAL(clicked(bool)),this,SLOT(takeScreenshot()));
-    QTimer *timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(takeScreenshot()));
+    threadScreenshot.setSerialNum(serialNum);
     connect(&threadScreenshot, SIGNAL(gotScreenshot(QImage, int, int)), this, SLOT(showScreenshot(QImage, int, int)));
-    timer->start(200);
+
+    QTimer *timer = new QTimer(this);
+    connect(timer,SIGNAL(timeout()),this,SLOT(takeScreenshot()));
+    timer->start(100);
 }
 
 void ScreenDockWidget::showScreenshot(QImage image, int width, int height)
@@ -43,9 +45,6 @@ void ScreenDockWidget::takeScreenshot()
 
 ScreenDockWidget::~ScreenDockWidget()
 {
-    if(threadScreenshot.isRunning())
-    {
-        threadScreenshot.terminate();
-    }
+    threadScreenshot.deleteLater();
     delete ui;
 }

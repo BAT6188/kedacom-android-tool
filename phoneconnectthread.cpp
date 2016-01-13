@@ -7,21 +7,21 @@ void PhoneConnectThread::run()
     QString data,serialNumber,tmp;
     int serialLength=0;
 
-    this->socket = new QTcpSocket();
-    this->socket->connectToHost("127.0.0.1",5037,QTcpSocket::ReadWrite);
-    if (this->socket->waitForConnected(2000))
+    QTcpSocket *connectSocket = new QTcpSocket();
+    connectSocket->connectToHost("127.0.0.1",5037,QTcpSocket::ReadWrite);
+    if (connectSocket->waitForConnected(2000))
     {
-        this->socket->write("0012host:track-devices");
-        this->socket->waitForReadyRead(2000);
-        data = this->socket->read(4);
+        connectSocket->write("0012host:track-devices");
+        connectSocket->waitForReadyRead(2000);
+        data = connectSocket->read(4);
         if (data == "OKAY")
         {
             while (true)
             {
                 if (!first)
-                    this->socket->waitForReadyRead(-1);
+                    connectSocket->waitForReadyRead(-1);
                 first = false;
-                data = this->socket->read(4);
+                data = connectSocket->read(4);
                 tmp=data;
                 qDebug() << "PhoneConnectThread data1:"+data;
                 if (data == "")
@@ -36,7 +36,7 @@ void PhoneConnectThread::run()
                 }
                 else
                 {
-                    data = this->socket->read(dataLength);
+                    data = connectSocket->read(dataLength);
                     qDebug() << "PhoneConnectThread data2:"+data;
                     if (data.contains("device"))
                     {

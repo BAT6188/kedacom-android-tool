@@ -13,9 +13,11 @@ class ThreadScreenshot : public QThread
 public:
     void run();
     int widthScreen, heightScreen;
-
-    QTcpSocket *socket;
+    void setSerialNum(QString serialNum);
 signals:
     void gotScreenshot(QImage, int, int);
+
+private:
+    QString serialNumber;
 };
 #endif // SCREENSHOTTHREAD_H

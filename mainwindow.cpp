@@ -13,20 +13,34 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    screenDockWidget = new ScreenDockWidget(this);
+    //screenDockWidget = new ScreenDockWidget(this);
     phoneDockWidget = new PhoneDockWidget(this);
 
     ADBProcess process;
     process.exec("version");
     ui->statusBar->showMessage(process.readAll());
 
-    addDockWidget(Qt::RightDockWidgetArea,screenDockWidget);
+    //addDockWidget(Qt::RightDockWidgetArea,screenDockWidget);
     addDockWidget(Qt::LeftDockWidgetArea,phoneDockWidget);
     createActions();
     ui->mainToolBar->addAction(phoneAction);
 
     connect(&phonethread,SIGNAL(connectionChanged(int,QString)),phoneDockWidget,SLOT(slotConnectionChanged(int,QString)));
+    connect(phoneDockWidget,SIGNAL(newPhone(QString)),this,SLOT(createScreenWidget(QString)));
     phonethread.start();
+}
+
+void MainWindow::createScreenWidget(QString serialNum)
+{
+    serialNum.remove('[');
+    serialNum.remove(']');
+    serialNum.remove(' ');
+    serialNum.remove("\r\r\n");
+
+    qDebug() << "MainWindow:" + serialNum;
+
+    screenDockWidget = new ScreenDockWidget(this,serialNum);
+    addDockWidget(Qt::LeftDockWidgetArea,screenDockWidget);
 }
 
 void MainWindow::createActions()
@@ -36,9 +50,5 @@ void MainWindow::createActions()
 
 MainWindow::~MainWindow()
 {
-    if(phonethread.isRunning())
-    {
-        phonethread.terminate();
-    }
     delete ui;
 }
