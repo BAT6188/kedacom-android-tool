@@ -8,6 +8,7 @@
 #include <screendockwidget.h>
 #include <phonedockwidget.h>
 #include <phoneconnectthread.h>
+#include <phone.h>
 
 namespace Ui {
 class MainWindow;
@@ -24,13 +25,16 @@ public:
 private:
     Ui::MainWindow *ui;
     ScreenShot *screenShotWidget;
-    ScreenDockWidget *screenDockWidget;
-    PhoneDockWidget *phoneDockWidget;
+    //ScreenDockWidget *screenDockWidget;
+    //PhoneDockWidget *phoneDockWidget;
+    QList<PhoneDockWidget *> phoneDockList;
     QAction *phoneAction;
     PhoneConnectThread phonethread;
     void createActions();
+
 private slots:
-    void createScreenWidget(QString);
+    ScreenDockWidget *createScreenWidget(Phone *p);
+    void slotConnectionChanged(int,QString);
 };
 
 #endif // MAINWINDOW_H

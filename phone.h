@@ -11,6 +11,7 @@ class Phone : public QObject
 public:
     explicit Phone(QObject *parent = 0);
     QString getProperty(QString property);
+    ~Phone();
 
 private:
     void parseProperty();

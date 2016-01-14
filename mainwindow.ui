@@ -6,13 +6,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>300</width>
     <height>600</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>600</width>
+    <width>300</width>
     <height>300</height>
    </size>
   </property>
@@ -20,7 +20,7 @@
    <string>KTool</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="kt.qrc">
     <normaloff>:/icons/images/mainwindow.jpg</normaloff>:/icons/images/mainwindow.jpg</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -33,7 +33,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>300</width>
      <height>23</height>
     </rect>
    </property>
@@ -118,6 +118,8 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="kt.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -2,33 +2,18 @@
 #include "ui_phonedockwidget.h"
 #include <QDebug>
 
-PhoneDockWidget::PhoneDockWidget(QWidget *parent) :
+PhoneDockWidget::PhoneDockWidget(QWidget *parent,Phone *p) :
     QDockWidget(parent),
     ui(new Ui::PhoneDockWidget)
 {
     ui->setupUi(this);
     ui->dockWidgetContents->setLayout(ui->gridLayout);
+    ui->phoneID->setText(p->getProperty("[ro.boot.serialno]"));
+    ui->phoneName->setText(p->getProperty("[ro.product.name]"));
 }
 
 PhoneDockWidget::~PhoneDockWidget()
 {
     delete ui;
-}
-
-void PhoneDockWidget::slotConnectionChanged(int flag,QString msg)
-{
-    //create Phone instanse here
-    qDebug() << "slotConnectionChanged:" + msg;
-    if(flag == 1)
-    {
-        Phone *p = new Phone(this);
-        phoneMap.insert(1,p);
-        emit newPhone(p->getProperty("[ro.boot.serialno]"));
-        ui->phoneID->setText(p->getProperty("[ro.boot.serialno]"));
-        ui->phoneName->setText(p->getProperty("[ro.product.name]"));
-    }
-    if(flag == 0)
-    {
-        phoneMap.remove(1);
-    }
+    qDebug() << "~PhoneDockWidget";
 }

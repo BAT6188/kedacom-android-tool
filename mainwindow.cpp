@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <ksetting.h>
 #include <adbprocess.h>
+#include <phonemanager.h>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -13,26 +14,21 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //screenDockWidget = new ScreenDockWidget(this);
-    phoneDockWidget = new PhoneDockWidget(this);
-
     ADBProcess process;
     process.exec("version");
     ui->statusBar->showMessage(process.readAll());
     process.exec("devices");
 
-    //addDockWidget(Qt::RightDockWidgetArea,screenDockWidget);
-    addDockWidget(Qt::LeftDockWidgetArea,phoneDockWidget);
     createActions();
     ui->mainToolBar->addAction(phoneAction);
 
-    connect(&phonethread,SIGNAL(connectionChanged(int,QString)),phoneDockWidget,SLOT(slotConnectionChanged(int,QString)));
-    connect(phoneDockWidget,SIGNAL(newPhone(QString)),this,SLOT(createScreenWidget(QString)));
+    connect(&phonethread,SIGNAL(connectionChanged(int,QString)),this,SLOT(slotConnectionChanged(int,QString)));
     phonethread.start();
 }
 
-void MainWindow::createScreenWidget(QString serialNum)
+ScreenDockWidget *MainWindow::createScreenWidget(Phone *phone)
 {
+    QString serialNum = phone->getProperty("[ro.boot.serialno]");
     serialNum.remove('[');
     serialNum.remove(']');
     serialNum.remove(' ');
@@ -40,8 +36,9 @@ void MainWindow::createScreenWidget(QString serialNum)
 
     qDebug() << "MainWindow:" + serialNum;
 
-    screenDockWidget = new ScreenDockWidget(this,serialNum);
-    addDockWidget(Qt::LeftDockWidgetArea,screenDockWidget);
+    ScreenDockWidget *screenDockWidget = new ScreenDockWidget(0,serialNum);
+    //addDockWidget(Qt::TopDockWidgetArea,screenDockWidget);
+    return screenDockWidget;
 }
 
 void MainWindow::createActions()
@@ -53,3 +50,26 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::slotConnectionChanged(int flag,QString msg)
+{
+    qDebug() << "slotConnectionChanged:" + msg;
+    if(flag == 1)
+    {
+        Phone *p = new Phone(this);
+        PhoneManager::getInstanse()->AddPhone(p);
+        PhoneDockWidget *phoneDockWidget = new PhoneDockWidget(this,p);
+        addDockWidget(Qt::LeftDockWidgetArea,phoneDockWidget);
+        phoneDockList.append(phoneDockWidget);
+        connect(p,SIGNAL(destroyed(QObject*)),createScreenWidget(p),SLOT(deleteLater()));
+        connect(p,SIGNAL(destroyed(QObject*)),phoneDockWidget,SLOT(deleteLater()));
+    }
+    if(flag == 0)
+    {
+        qDebug() << "slotConnectionChanged: Remove the phone" + msg;
+        PhoneManager::getInstanse()->RemovePhone(0);
+        this->removeDockWidget(phoneDockList.last());
+        phoneDockList.removeLast();
+    }
+}
+

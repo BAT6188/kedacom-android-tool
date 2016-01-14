@@ -2,11 +2,12 @@
 #include "ui_screendockwidget.h"
 
 ScreenDockWidget::ScreenDockWidget(QWidget *parent,QString serialNum) :
-    QDockWidget(parent),
-    ui(new Ui::ScreenDockWidget)
+    QWidget(parent),
+    ui(new Ui::ScreenForm)
 {
     ui->setupUi(this);
-    ui->dockWidgetContents->setLayout(ui->gridLayout);
+    //ui->dockWidgetContents->setLayout(ui->gridLayout);
+    this->setLayout(ui->gridLayout);
 
     this->rotation = 0;
     this->widthScreen = 240;
@@ -17,10 +18,12 @@ ScreenDockWidget::ScreenDockWidget(QWidget *parent,QString serialNum) :
     //connect(ui->pushButton,SIGNAL(clicked(bool)),this,SLOT(takeScreenshot()));
     threadScreenshot.setSerialNum(serialNum);
     connect(&threadScreenshot, SIGNAL(gotScreenshot(QImage, int, int)), this, SLOT(showScreenshot(QImage, int, int)));
+    this->setWindowTitle(serialNum);
 
     QTimer *timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(takeScreenshot()));
     timer->start(100);
+    show();
 }
 
 void ScreenDockWidget::showScreenshot(QImage image, int width, int height)
@@ -45,6 +48,7 @@ void ScreenDockWidget::takeScreenshot()
 
 ScreenDockWidget::~ScreenDockWidget()
 {
+    qDebug() << "~ScreenDockWidget";
     threadScreenshot.deleteLater();
     delete ui;
 }

@@ -4,12 +4,13 @@
 #include <QDockWidget>
 #include <screenshotthread.h>
 #include <QTimer>
+#include "ui_screenform.h"
 
 namespace Ui {
 class ScreenDockWidget;
 }
 
-class ScreenDockWidget : public QDockWidget
+class ScreenDockWidget : public QWidget
 {
     Q_OBJECT
 
@@ -18,7 +19,7 @@ public:
     ~ScreenDockWidget();
 
 private:
-    Ui::ScreenDockWidget *ui;
+    Ui::ScreenForm *ui;
     int widthScreen, heightScreen,rotation;
     ThreadScreenshot threadScreenshot;
     QPixmap screenshot;

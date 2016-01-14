@@ -10,13 +10,19 @@
     <x>0</x>
     <y>0</y>
     <width>300</width>
-    <height>300</height>
+    <height>200</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>300</width>
-    <height>222</height>
+    <height>200</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>300</width>
+    <height>300</height>
    </size>
   </property>
   <property name="allowedAreas">
@@ -38,7 +44,7 @@
       <x>10</x>
       <y>10</y>
       <width>281</width>
-      <height>222</height>
+      <height>141</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">

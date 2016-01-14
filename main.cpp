@@ -1,9 +1,11 @@
 #include "mainwindow.h"
 #include <QApplication>
-#include "ksetting.h"
+#include <ksetting.h>
+#include <phonemanager.h>
 
 
 KSetting *KSetting::ksetting = NULL;
+PhoneManager *PhoneManager::phoneManager = NULL;
 
 int main(int argc, char *argv[])
 {
@@ -14,6 +16,8 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationDomain("http://kedacom.com");
 
     KSetting::getSetting();
+    PhoneManager::getInstanse();
+
     MainWindow w;
     w.show();
 

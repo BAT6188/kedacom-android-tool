@@ -13,15 +13,11 @@ class PhoneDockWidget : public QDockWidget
     Q_OBJECT
 
 public:
-    explicit PhoneDockWidget(QWidget *parent = 0);
+    explicit PhoneDockWidget(QWidget *parent = 0,Phone *p = 0);
     ~PhoneDockWidget();
-signals:
-    void newPhone(QString);
-public slots:
-    void slotConnectionChanged(int,QString);
+
 private:
     Ui::PhoneDockWidget *ui;
-    QMap<int,Phone*> phoneMap;
 };
 
 #endif // PHONEDOCKWIDGET_H

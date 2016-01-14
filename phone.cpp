@@ -29,3 +29,9 @@ QString Phone::getProperty(QString property)
     return propertyMap[property];
 }
 
+Phone::~Phone()
+{
+    qDebug() << "~Phone";
+}
+
+

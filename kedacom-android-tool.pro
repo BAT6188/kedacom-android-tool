@@ -22,7 +22,9 @@ SOURCES += main.cpp\
     screendockwidget.cpp \
     phonedockwidget.cpp \
     phoneconnectthread.cpp \
-    phone.cpp
+    phone.cpp \
+    phonemanager.cpp \
+    screenform.cpp
 
 HEADERS  += mainwindow.h \
     ksetting.h \
@@ -32,12 +34,15 @@ HEADERS  += mainwindow.h \
     screendockwidget.h \
     phonedockwidget.h \
     phoneconnectthread.h \
-    phone.h
+    phone.h \
+    phonemanager.h \
+    screenform.h
 
 FORMS    += mainwindow.ui \
     screenshot.ui \
     screendockwidget.ui \
-    phonedockwidget.ui
+    phonedockwidget.ui \
+    screenform.ui
 
 RESOURCES += \
     kt.qrc
