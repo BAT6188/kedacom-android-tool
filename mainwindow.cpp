@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ADBProcess process;
     process.exec("version");
     ui->statusBar->showMessage(process.readAll());
+    process.exec("devices");
 
     //addDockWidget(Qt::RightDockWidgetArea,screenDockWidget);
     addDockWidget(Qt::LeftDockWidgetArea,phoneDockWidget);

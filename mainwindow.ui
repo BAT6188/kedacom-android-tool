@@ -20,7 +20,7 @@
    <string>KTool</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="kt.qrc">
+   <iconset>
     <normaloff>:/icons/images/mainwindow.jpg</normaloff>:/icons/images/mainwindow.jpg</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -58,8 +58,8 @@
     <property name="title">
      <string>常用命令</string>
     </property>
+    <addaction name="actionReboot"/>
     <addaction name="actionReboot_bootloader"/>
-    <addaction name="actionReboot_bootloader_2"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -106,20 +106,18 @@
     <string>使用帮助</string>
    </property>
   </action>
-  <action name="actionReboot_bootloader">
+  <action name="actionReboot">
    <property name="text">
     <string>reboot</string>
    </property>
   </action>
-  <action name="actionReboot_bootloader_2">
+  <action name="actionReboot_bootloader">
    <property name="text">
     <string>reboot bootloader</string>
    </property>
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="kt.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
