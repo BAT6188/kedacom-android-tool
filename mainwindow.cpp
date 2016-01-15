@@ -39,7 +39,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 void MainWindow::createActions()
 {
-    phoneAction = new QAction(QIcon(":/icons/images/mainwindow.jpg"),tr("My Phone"),this);
+    phoneAction = new QAction(QIcon(":/images/mainwindow.jpg"),tr("My Phone"),this);
 }
 
 MainWindow::~MainWindow()

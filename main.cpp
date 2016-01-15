@@ -2,6 +2,7 @@
 #include <QApplication>
 #include <ksetting.h>
 #include <phonemanager.h>
+#include <QFile>
 
 
 KSetting *KSetting::ksetting = NULL;
@@ -14,6 +15,11 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationName("Keda-Android-Tool");
     QCoreApplication::setApplicationVersion("1.0.0");
     QCoreApplication::setOrganizationDomain("http://kedacom.com");
+
+    QFile file(":/qss/pagefold.qss");
+    file.open(QFile::ReadOnly);
+    QString styleSheet = QString::fromLatin1(file.readAll());
+    qApp->setStyleSheet(styleSheet);
 
     KSetting::getSetting();
     PhoneManager::getInstanse();

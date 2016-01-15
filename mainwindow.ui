@@ -21,7 +21,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="kt.qrc">
-    <normaloff>:/icons/images/mainwindow.jpg</normaloff>:/icons/images/mainwindow.jpg</iconset>
+    <normaloff>:/images/mainwindow.jpg</normaloff>:/images/mainwindow.jpg</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="layoutDirection">
