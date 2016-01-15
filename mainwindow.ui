@@ -16,6 +16,12 @@
     <height>300</height>
    </size>
   </property>
+  <property name="maximumSize">
+   <size>
+    <width>300</width>
+    <height>800</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>KTool</string>
   </property>
