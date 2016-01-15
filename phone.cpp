@@ -5,6 +5,7 @@
 Phone::Phone(QObject *parent) : QObject(parent)
 {
     parseProperty();
+    //cpu = new CPU(this);
 }
 
 void Phone::parseProperty()
@@ -33,5 +34,24 @@ Phone::~Phone()
 {
     qDebug() << "~Phone";
 }
+
+QString Phone::getID()
+{
+    QString serialNum = this->getProperty("[ro.boot.serialno]");
+    serialNum.remove('[');
+    serialNum.remove(']');
+    serialNum.remove(' ');
+    serialNum.remove("\r\r\n");
+    return serialNum;
+}
+
+QList<QByteArray> Phone::getCurFreq()
+{
+    QList<QByteArray> list;
+    process.exec("shell cat /sys/devices/system/cpu/cpu*/cpufreq/cpuinfo_cur_freq");
+    list = process.readAll().replace("\r\r","").split('\n');
+    return list;
+}
+
 
 

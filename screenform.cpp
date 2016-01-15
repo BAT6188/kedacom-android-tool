@@ -1,5 +1,6 @@
 #include "screenform.h"
 #include "ui_screenform.h"
+#include <QDebug>
 
 ScreenForm::ScreenForm(QWidget *parent) :
     QWidget(parent),
@@ -10,5 +11,6 @@ ScreenForm::ScreenForm(QWidget *parent) :
 
 ScreenForm::~ScreenForm()
 {
+    qDebug() << "~ScreenForm";
     delete ui;
 }

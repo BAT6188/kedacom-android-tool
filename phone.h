@@ -12,6 +12,8 @@ public:
     explicit Phone(QObject *parent = 0);
     QString getProperty(QString property);
     ~Phone();
+    QString getID();
+    QList<QByteArray> getCurFreq();
 
 private:
     void parseProperty();

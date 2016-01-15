@@ -1,5 +1,5 @@
 #include "screendockwidget.h"
-#include "ui_screendockwidget.h"
+//#include "ui_screendockwidget.h"
 
 ScreenDockWidget::ScreenDockWidget(QWidget *parent,QString serialNum) :
     QWidget(parent),
@@ -23,7 +23,6 @@ ScreenDockWidget::ScreenDockWidget(QWidget *parent,QString serialNum) :
     QTimer *timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(takeScreenshot()));
     timer->start(100);
-    show();
 }
 
 void ScreenDockWidget::showScreenshot(QImage image, int width, int height)

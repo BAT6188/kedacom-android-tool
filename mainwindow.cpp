@@ -26,20 +26,16 @@ MainWindow::MainWindow(QWidget *parent) :
     phonethread.start();
 }
 
-ScreenDockWidget *MainWindow::createScreenWidget(Phone *phone)
-{
-    QString serialNum = phone->getProperty("[ro.boot.serialno]");
-    serialNum.remove('[');
-    serialNum.remove(']');
-    serialNum.remove(' ');
-    serialNum.remove("\r\r\n");
+//ScreenDockWidget *MainWindow::createScreenWidget(Phone *phone)
+//{
+//    QString serialNum = phone->getID();
 
-    qDebug() << "MainWindow:" + serialNum;
+//    qDebug() << "MainWindow:" + serialNum;
 
-    ScreenDockWidget *screenDockWidget = new ScreenDockWidget(0,serialNum);
-    //addDockWidget(Qt::TopDockWidgetArea,screenDockWidget);
-    return screenDockWidget;
-}
+//    ScreenDockWidget *screenDockWidget = new ScreenDockWidget(0,serialNum);
+//    //addDockWidget(Qt::TopDockWidgetArea,screenDockWidget);
+//    return screenDockWidget;
+//}
 
 void MainWindow::createActions()
 {
@@ -61,15 +57,16 @@ void MainWindow::slotConnectionChanged(int flag,QString msg)
         PhoneDockWidget *phoneDockWidget = new PhoneDockWidget(this,p);
         addDockWidget(Qt::LeftDockWidgetArea,phoneDockWidget);
         phoneDockList.append(phoneDockWidget);
-        connect(p,SIGNAL(destroyed(QObject*)),createScreenWidget(p),SLOT(deleteLater()));
         connect(p,SIGNAL(destroyed(QObject*)),phoneDockWidget,SLOT(deleteLater()));
     }
     if(flag == 0)
     {
-        qDebug() << "slotConnectionChanged: Remove the phone" + msg;
-        PhoneManager::getInstanse()->RemovePhone(0);
-        this->removeDockWidget(phoneDockList.last());
-        phoneDockList.removeLast();
+        if(phoneDockList.length() > 0) {
+            qDebug() << "slotConnectionChanged: Remove the phone" + msg;
+            PhoneManager::getInstanse()->RemovePhone(0);
+            this->removeDockWidget(phoneDockList.last());
+            phoneDockList.removeLast();
+        }
     }
 }
 

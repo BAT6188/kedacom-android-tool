@@ -33,7 +33,7 @@ private:
     void createActions();
 
 private slots:
-    ScreenDockWidget *createScreenWidget(Phone *p);
+    //ScreenDockWidget *createScreenWidget(Phone *p);
     void slotConnectionChanged(int,QString);
 };
 

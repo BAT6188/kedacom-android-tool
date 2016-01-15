@@ -24,7 +24,8 @@ SOURCES += main.cpp\
     phoneconnectthread.cpp \
     phone.cpp \
     phonemanager.cpp \
-    screenform.cpp
+    screenform.cpp \
+    phonedetailwidget.cpp
 
 HEADERS  += mainwindow.h \
     ksetting.h \
@@ -36,13 +37,15 @@ HEADERS  += mainwindow.h \
     phoneconnectthread.h \
     phone.h \
     phonemanager.h \
-    screenform.h
+    screenform.h \
+    phonedetailwidget.h
 
 FORMS    += mainwindow.ui \
     screenshot.ui \
     screendockwidget.ui \
     phonedockwidget.ui \
-    screenform.ui
+    screenform.ui \
+    phonedetailwidget.ui
 
 RESOURCES += \
     kt.qrc
