@@ -1,5 +1,6 @@
 #include "screendockwidget.h"
 //#include "ui_screendockwidget.h"
+#include <QCloseEvent>
 
 ScreenDockWidget::ScreenDockWidget(QWidget *parent,QString serialNum) :
     QWidget(parent),
@@ -20,8 +21,13 @@ ScreenDockWidget::ScreenDockWidget(QWidget *parent,QString serialNum) :
     connect(&threadScreenshot, SIGNAL(gotScreenshot(QImage, int, int)), this, SLOT(showScreenshot(QImage, int, int)));
     this->setWindowTitle(serialNum);
 
-    QTimer *timer = new QTimer(this);
+    timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(takeScreenshot()));
+    connect(ui->start,SIGNAL(clicked(bool)),this,SLOT(startTimer()));
+}
+
+void ScreenDockWidget::startTimer()
+{
     timer->start(100);
 }
 
@@ -50,4 +56,11 @@ ScreenDockWidget::~ScreenDockWidget()
     qDebug() << "~ScreenDockWidget";
     threadScreenshot.deleteLater();
     delete ui;
+}
+
+void ScreenDockWidget::closeEvent(QCloseEvent *e)
+{
+    qDebug() << "ScreenDockWidget::closeEvent";
+    timer->stop();
+    e->accept();
 }

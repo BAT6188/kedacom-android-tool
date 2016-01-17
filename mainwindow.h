@@ -31,6 +31,7 @@ private:
     QAction *phoneAction;
     PhoneConnectThread phonethread;
     void createActions();
+    void close();
 
 private slots:
     //ScreenDockWidget *createScreenWidget(Phone *p);

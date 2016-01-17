@@ -27,7 +27,7 @@ PhoneDockWidget::~PhoneDockWidget()
 
 void PhoneDockWidget::showDetail()
 {
-    pdw->show();
+    pdw->showMe();
 }
 
 void PhoneDockWidget::showScreen()

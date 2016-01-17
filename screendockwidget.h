@@ -17,16 +17,19 @@ class ScreenDockWidget : public QWidget
 public:
     explicit ScreenDockWidget(QWidget *parent = 0,QString serialNum="");
     ~ScreenDockWidget();
+    void closeEvent(QCloseEvent *event);
 
 private:
     Ui::ScreenForm *ui;
     int widthScreen, heightScreen,rotation;
     ThreadScreenshot threadScreenshot;
     QPixmap screenshot;
+    QTimer *timer;
 
 private slots:
     void takeScreenshot();
     void showScreenshot(QImage, int, int);
+    void startTimer();
 };
 
 #endif // SCREENDOCKWIDGET_H

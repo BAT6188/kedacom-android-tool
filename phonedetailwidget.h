@@ -17,14 +17,19 @@ class PhoneDetailWidget : public QWidget
 public:
     explicit PhoneDetailWidget(QWidget *parent = 0,Phone *p = 0);
     ~PhoneDetailWidget();
+    void showMe();
+    void closeEvent(QCloseEvent *e);
 
 private slots:
     void showCPUInfo();
+    void showMemInfo();
 
 private:
     Ui::PhoneDetailWidget *ui;
     Phone *phone;
     QTimer *timer;
+    QTimer *meminfoTimer;
+    QMap<QString,QColor> nameColor;
 };
 
 #endif // PHONEDETAILWIDGET_H

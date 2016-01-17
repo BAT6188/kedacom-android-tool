@@ -25,7 +25,8 @@ SOURCES += main.cpp\
     phone.cpp \
     phonemanager.cpp \
     screenform.cpp \
-    phonedetailwidget.cpp
+    phonedetailwidget.cpp \
+    chartlabel.cpp
 
 HEADERS  += mainwindow.h \
     ksetting.h \
@@ -38,7 +39,8 @@ HEADERS  += mainwindow.h \
     phone.h \
     phonemanager.h \
     screenform.h \
-    phonedetailwidget.h
+    phonedetailwidget.h \
+    chartlabel.h
 
 FORMS    += mainwindow.ui \
     screenshot.ui \

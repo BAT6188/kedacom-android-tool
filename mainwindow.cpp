@@ -70,3 +70,8 @@ void MainWindow::slotConnectionChanged(int flag,QString msg)
     }
 }
 
+void MainWindow::close()
+{
+    qApp->exit();
+}
+
