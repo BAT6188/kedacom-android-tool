@@ -30,6 +30,7 @@ private slots:
     void takeScreenshot();
     void showScreenshot(QImage, int, int);
     void startTimer();
+    void stopTimer(bool checked);
 };
 
 #endif // SCREENDOCKWIDGET_H

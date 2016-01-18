@@ -95,7 +95,7 @@
       <item>
        <widget class="QPushButton" name="start">
         <property name="text">
-         <string>开始</string>
+         <string>截屏</string>
         </property>
        </widget>
       </item>

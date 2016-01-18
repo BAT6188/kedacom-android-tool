@@ -24,11 +24,35 @@ ScreenDockWidget::ScreenDockWidget(QWidget *parent,QString serialNum) :
     timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(takeScreenshot()));
     connect(ui->start,SIGNAL(clicked(bool)),this,SLOT(startTimer()));
+    connect(ui->checkBox,SIGNAL(clicked(bool)),this,SLOT(stopTimer(bool)));
 }
 
 void ScreenDockWidget::startTimer()
 {
-    timer->start(100);
+    if(ui->checkBox->isChecked())
+    {
+        if(!timer->isActive())
+        {
+            timer->start(100);
+        }
+    }
+    else
+    {
+        takeScreenshot();
+    }
+}
+
+void ScreenDockWidget::stopTimer(bool checked)
+{
+    if(checked)
+    {
+        if(!timer->isActive())
+            timer->start(100);
+    }
+    else
+    {
+        timer->stop();
+    }
 }
 
 void ScreenDockWidget::showScreenshot(QImage image, int width, int height)
