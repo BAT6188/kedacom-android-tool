@@ -16,6 +16,9 @@ public:
     QList<QByteArray> getCurFreq();
     QMap<QString,int> getMemInfo();
     long getMemTotal();
+    QStringList getCpuGovernorList();
+
+    void setCpuGovernor(QString governor);
 
 private:
     void parseProperty();
@@ -25,6 +28,8 @@ private:
     ADBProcess process;
     QMap<QString,int> meminfo;
     long totalMem;
+    QStringList governorList;
+    void getCpuGovernor();
 };
 
 #endif // PHONE_H

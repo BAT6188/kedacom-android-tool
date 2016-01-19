@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <adbprocess.h>
 #include <QCloseEvent>
+#include <QRadioButton>
 
 PhoneDetailWidget::PhoneDetailWidget(QWidget *parent,Phone *p) :
     QWidget(parent),
@@ -29,6 +30,13 @@ PhoneDetailWidget::PhoneDetailWidget(QWidget *parent,Phone *p) :
     ui->cacheLabel->setStyleSheet("background-color:#0000FF");
     ui->BuffersLabel->setStyleSheet("background-color:#FF0000");
     ui->othersLabel->setStyleSheet("background-color:#00FFFF");
+
+    foreach (QString governor, p->getCpuGovernorList()) {
+        QRadioButton *radio = new QRadioButton(governor,ui->groupBox);
+        connect(radio,SIGNAL(clicked(bool)),this,SLOT(radioChanged()));
+        ui->groupVertical->addWidget(radio);
+    }
+    ui->groupBox->setLayout(ui->groupVertical);
 }
 
 PhoneDetailWidget::~PhoneDetailWidget()
@@ -36,6 +44,13 @@ PhoneDetailWidget::~PhoneDetailWidget()
     qDebug() << "~PhoneDetailWidget";
     timer->stop();
     delete ui;
+}
+
+void PhoneDetailWidget::radioChanged()
+{
+    QRadioButton *btn = (QRadioButton*)sender();
+    this->phone->setCpuGovernor(btn->text());
+    //qDebug() << btn->text();
 }
 
 void PhoneDetailWidget::showCPUInfo()

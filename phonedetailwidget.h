@@ -23,7 +23,7 @@ public:
 private slots:
     void showCPUInfo();
     void showMemInfo();
-
+    void radioChanged();
 private:
     Ui::PhoneDetailWidget *ui;
     Phone *phone;

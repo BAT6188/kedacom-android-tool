@@ -6,6 +6,7 @@ Phone::Phone(QObject *parent) : QObject(parent)
 {
     parseProperty();
     totalMem = getTotalMem();
+    getCpuGovernor();
 }
 
 void Phone::parseProperty()
@@ -45,6 +46,13 @@ QString Phone::getID()
     return serialNum;
 }
 
+void Phone::setCpuGovernor(QString governor)
+{
+    QString cmd = "shell echo " + governor + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
+    qDebug() << cmd;
+    process.exec(cmd);
+}
+
 QList<QByteArray> Phone::getCurFreq()
 {
     QList<QByteArray> list;
@@ -79,6 +87,20 @@ long Phone::getTotalMem()
 long Phone::getMemTotal()
 {
     return totalMem;
+}
+
+QStringList Phone::getCpuGovernorList()
+{
+    return this->governorList;
+}
+
+void Phone::getCpuGovernor()
+{
+    process.exec("shell cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors");
+    QString temp = process.readAll();
+    this->governorList = temp.split(" ");
+    this->governorList.removeAt(governorList.length() -1);
+    qDebug() << governorList;
 }
 
 QMap<QString,int> Phone::getMemInfo()
