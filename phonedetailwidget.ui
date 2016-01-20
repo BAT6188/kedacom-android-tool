@@ -223,8 +223,14 @@
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="0" column="1">
        <widget class="QLabel" name="freq_label">
+        <property name="minimumSize">
+         <size>
+          <width>50</width>
+          <height>100</height>
+         </size>
+        </property>
         <property name="text">
-         <string>TextLabel</string>
+         <string/>
         </property>
        </widget>
       </item>

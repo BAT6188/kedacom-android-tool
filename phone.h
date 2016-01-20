@@ -17,7 +17,7 @@ public:
     QMap<QString,int> getMemInfo();
     long getMemTotal();
     QStringList getCpuGovernorList();
-
+    void getStorageInfo();
     void setCpuGovernor(QString governor);
 
 private:

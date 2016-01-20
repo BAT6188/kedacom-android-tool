@@ -7,6 +7,61 @@ Phone::Phone(QObject *parent) : QObject(parent)
     parseProperty();
     totalMem = getTotalMem();
     getCpuGovernor();
+    getStorageInfo();
+}
+
+void Phone::getStorageInfo()
+{
+    QString data,tmp="1";
+    QStringList list;
+    process.exec("shell df");
+    tmp.clear();
+    while (true)
+    {
+        data=process.readLine();
+        if (data.isEmpty())
+            break;
+        tmp.append(data);
+    }
+    list=tmp.split("\n");
+    QStringList parts;
+    int FileID,UsedID,FreeID,SizeID;
+    tmp = list.takeFirst();
+    parts=tmp.split(QRegExp("\\s+"));
+    for(int i = 0; i < parts.size(); i++) {
+        if(parts.at(i) == "Filesystem") {
+            FileID = i;
+        }
+
+        if(parts.at(i) == "Used") {
+            UsedID = i;
+        }
+
+        if(parts.at(i) == "Free") {
+            FreeID = i;
+        }
+
+        if(parts.at(i) == "Size") {
+            SizeID = i;
+        }
+    }
+
+    while (list.count()>0)
+    {
+        tmp=list.takeFirst();
+        parts=tmp.split(QRegExp("\\s+"));
+        if (parts.size()>2)
+        {
+            if(parts.at(FileID)=="/data")
+            {
+
+            }
+            if(parts.at(FileID).contains("sdcard0"))
+            {
+
+            }
+        }
+    }
 }
 
 void Phone::parseProperty()
