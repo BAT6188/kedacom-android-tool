@@ -19,8 +19,12 @@ public:
     QStringList getCpuGovernorList();
     void getStorageInfo();
     void setCpuGovernor(QString governor);
+    float getDataPercent();
+    float getSystemPercent();
+    float getCachePercent();
 
 private:
+    float calPercent(QString used,QString size);
     void parseProperty();
     long getTotalMem();
     QString serialNum;
@@ -30,6 +34,7 @@ private:
     long totalMem;
     QStringList governorList;
     void getCpuGovernor();
+    float dataPercent,cachePercent,systemPercent;
 };
 
 #endif // PHONE_H

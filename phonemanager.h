@@ -22,7 +22,7 @@ public:
 private:
     QMap<int,Phone*> phoneMap;
     static PhoneManager *phoneManager;
-    int count = 0;
+    int count;
 
 signals:
 

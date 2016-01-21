@@ -37,6 +37,10 @@ PhoneDetailWidget::PhoneDetailWidget(QWidget *parent,Phone *p) :
         ui->groupVertical->addWidget(radio);
     }
     ui->groupBox->setLayout(ui->groupVertical);
+
+    ui->dataBar->setValue(p->getDataPercent()*100);
+    ui->systemBar->setValue(p->getSystemPercent()*100);
+    ui->cacheBar->setValue(p->getCachePercent()*100);
 }
 
 PhoneDetailWidget::~PhoneDetailWidget()

@@ -10,11 +10,36 @@ Phone::Phone(QObject *parent) : QObject(parent)
     getStorageInfo();
 }
 
+float Phone::calPercent(QString used, QString size)
+{
+    double _size,_used;
+    if(used.contains("M") || size.contains("M"))
+    {
+        _used = used.remove("M").toDouble() * 1000 * 1000;
+        _size = size.remove("M").toDouble() * 1000 * 1000;
+    }
+    if(used.contains("K") || size.contains("K"))
+    {
+        _used = used.remove("K").toDouble() * 1000;
+        _size = size.remove("K").toDouble() * 1000;
+    }
+    if(used.contains("G") || size.contains("G"))
+    {
+        _used = used.remove("G").toDouble() * 1000 * 1000 * 1000;
+        _size = size.remove("G").toDouble() * 1000 * 1000 * 1000;
+    }
+    if(_size > 0) {
+        return _used/_size;
+    }
+    return -1;
+}
+
 void Phone::getStorageInfo()
 {
     QString data,tmp="1";
     QStringList list;
     process.exec("shell df");
+    QString used,size;
     tmp.clear();
     while (true)
     {
@@ -54,14 +79,42 @@ void Phone::getStorageInfo()
         {
             if(parts.at(FileID)=="/data")
             {
-
+                used = parts.at(UsedID);
+                size = parts.at(SizeID);
+                //qDebug() << "data:";
+                dataPercent = calPercent(used,size);
             }
-            if(parts.at(FileID).contains("sdcard0"))
+            if(parts.at(FileID) == ("/system"))
             {
-
+                used = parts.at(UsedID);
+                size = parts.at(SizeID);
+                //qDebug() << "system:" + used + size;
+                systemPercent = calPercent(used,size);
+            }
+            if(parts.at(FileID) == ("/cache"))
+            {
+                used = parts.at(UsedID);
+                size = parts.at(SizeID);
+                //qDebug() << "cache:";
+                cachePercent = calPercent(used,size);
             }
         }
     }
+}
+
+float Phone::getDataPercent()
+{
+    return dataPercent;
+}
+
+float Phone::getSystemPercent()
+{
+    return systemPercent;
+}
+
+float Phone::getCachePercent()
+{
+    return cachePercent;
 }
 
 void Phone::parseProperty()

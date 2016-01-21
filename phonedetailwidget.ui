@@ -100,7 +100,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QProgressBar" name="progressBar_2">
+       <widget class="QProgressBar" name="dataBar">
         <property name="maximumSize">
          <size>
           <width>100</width>
@@ -115,12 +115,12 @@
       <item row="2" column="0">
        <widget class="QLabel" name="label_8">
         <property name="text">
-         <string>Sdcard0 partition:</string>
+         <string>System:</string>
         </property>
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QProgressBar" name="progressBar_3">
+       <widget class="QProgressBar" name="systemBar">
         <property name="maximumSize">
          <size>
           <width>100</width>
@@ -132,7 +132,7 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="0">
+      <item row="4" column="0">
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
          <widget class="QLabel" name="label_3">
@@ -177,7 +177,7 @@
         </item>
        </layout>
       </item>
-      <item row="3" column="1">
+      <item row="4" column="1">
        <widget class="ChartLabel" name="memLabel">
         <property name="minimumSize">
          <size>
@@ -193,6 +193,26 @@
         </property>
         <property name="text">
          <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QProgressBar" name="cacheBar">
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="value">
+         <number>24</number>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Cache:</string>
         </property>
        </widget>
       </item>

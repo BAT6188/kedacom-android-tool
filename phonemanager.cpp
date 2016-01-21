@@ -2,7 +2,7 @@
 
 PhoneManager::PhoneManager(QObject *parent) : QObject(parent)
 {
-
+    count = 0;
 }
 
 void PhoneManager::AddPhone(Phone *p)
