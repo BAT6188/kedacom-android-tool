@@ -22,6 +22,7 @@ public:
     float getDataPercent();
     float getSystemPercent();
     float getCachePercent();
+    void exec_shell(QString cmd);
 
 private:
     float calPercent(QString used,QString size);

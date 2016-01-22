@@ -13,7 +13,7 @@ PhoneDockWidget::PhoneDockWidget(QWidget *parent,Phone *p) :
     ui->phoneName->setText(p->getProperty("[ro.product.name]"));
     this->p = p;
     pdw = new PhoneDetailWidget(0,p);
-    screenDockWidget = new ScreenDockWidget(0,p->getID());
+    screenDockWidget = new ScreenDockWidget(0,p);
     connect(p,SIGNAL(destroyed(QObject*)),screenDockWidget,SLOT(deleteLater()));
     connect(ui->More,SIGNAL(clicked(bool)),this,SLOT(showDetail()));
     connect(ui->ScreenBtn,SIGNAL(clicked(bool)),this,SLOT(showScreen()));

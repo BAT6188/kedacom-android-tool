@@ -44,7 +44,6 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui \
     screenshot.ui \
-    screendockwidget.ui \
     phonedockwidget.ui \
     screenform.ui \
     phonedetailwidget.ui

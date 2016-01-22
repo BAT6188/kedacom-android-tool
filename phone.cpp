@@ -238,5 +238,10 @@ QMap<QString,int> Phone::getMemInfo()
     return meminfo;
 }
 
+void Phone::exec_shell(QString cmd)
+{
+    process.exec("shell " +cmd);
+}
+
 
 
